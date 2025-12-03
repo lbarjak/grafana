@@ -5,15 +5,15 @@
 
 ## Modifications
 
-This fork restores two features that were removed in Grafana 12:
+This fork restores features that were removed in Grafana 12:
 
 ### 1. Attach time controls to toolbar
 - **Option:** Dashboard Settings → General → "Attach time controls to toolbar"
 - **Effect:** Shows the time range selector and refresh controls inside the main toolbar instead of a floating row
 
-### 2. Scale units (WIP)
-- **Option:** Panel → Field options → "Scale units"  
-- **Status:** UI toggle is present but not yet functional
+### 2. Disable unit scaling
+- **Behavior:** Unit scaling is disabled regardless of any toggle setting
+- **Effect:** Values are displayed with their base unit (e.g., 1500W stays as "1500 W" instead of being converted to "1.5 kW")
 
 ---
 
