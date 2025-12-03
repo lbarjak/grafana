@@ -1,6 +1,22 @@
 ![Grafana Logo (Light)](docs/logo-horizontal.png#gh-light-mode-only)
 ![Grafana Logo (Dark)](docs/logo-horizontal-dark.png#gh-dark-mode-only)
 
+# Grafana 12.3.0-mod (lbarjak fork)
+
+## Modifications
+
+This fork restores two features that were removed in Grafana 12:
+
+### 1. Attach time controls to toolbar
+- **Option:** Dashboard Settings → General → "Attach time controls to toolbar"
+- **Effect:** Shows the time range selector and refresh controls inside the main toolbar instead of a floating row
+
+### 2. Scale units (WIP)
+- **Option:** Panel → Field options → "Scale units"  
+- **Status:** UI toggle is present but not yet functional
+
+---
+
 The open-source platform for monitoring and observability
 
 [![License](https://img.shields.io/github/license/grafana/grafana)](LICENSE)
