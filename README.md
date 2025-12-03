@@ -15,6 +15,23 @@ This fork restores features that were removed in Grafana 12:
 - **Behavior:** Unit scaling is disabled regardless of any toggle setting
 - **Effect:** Values are displayed with their base unit (e.g., 1500W stays as "1500 W" instead of being converted to "1.5 kW")
 
+## Building
+
+To build the standalone Linux package:
+
+```bash
+# Build backend
+make build-go
+
+# Build frontend
+corepack yarn build
+
+# Create package
+./build-package.sh
+```
+
+This creates `grafana-12.3.0-mod.linux-amd64.tar.gz` ready for deployment.
+
 ---
 
 The open-source platform for monitoring and observability
