@@ -243,6 +243,7 @@ export function transformSaveModelSchemaV2ToScene(dto: DashboardWithAccessInfo<D
           withText: true,
         }),
         hideTimeControls: dashboard.timeSettings.hideTimepicker,
+        inlineTimeControls: (dashboard.timeSettings as { inlineTimeControls?: boolean } | undefined)?.inlineTimeControls,
       }),
     },
     'v2'

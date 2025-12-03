@@ -345,6 +345,8 @@ export const DashNav = memo<Props>((props) => {
     return buttons;
   };
 
+  const inlineTimeControls = Boolean(props.dashboard.timepicker?.inlineTimeControls);
+
   return (
     <AppChromeUpdate
       actions={
@@ -354,6 +356,7 @@ export const DashNav = memo<Props>((props) => {
           <ToolbarButtonRow alignment="right">{renderRightActions()}</ToolbarButtonRow>
         </>
       }
+      preferInlineActions={inlineTimeControls}
     />
   );
 });

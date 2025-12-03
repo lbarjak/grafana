@@ -391,6 +391,7 @@ export function createDashboardSceneFromDashboardModel(oldModel: DashboardModel,
           withText: true,
         }),
         hideTimeControls: oldModel.timepicker.hidden,
+        inlineTimeControls: oldModel.timepicker.inlineTimeControls,
       }),
     },
     serializerVersion

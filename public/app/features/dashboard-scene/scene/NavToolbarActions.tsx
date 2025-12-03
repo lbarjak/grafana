@@ -36,6 +36,7 @@ import { DashboardInteractions } from '../utils/interactions';
 import { DynamicDashNavButtonModel, dynamicDashNavActions } from '../utils/registerDynamicDashNavAction';
 import { isLibraryPanel } from '../utils/utils';
 
+import { DashboardControls } from './DashboardControls';
 import { DashboardScene } from './DashboardScene';
 import { GoToSnapshotOriginButton } from './GoToSnapshotOriginButton';
 import { ManagedDashboardNavBarBadge } from './ManagedDashboardNavBarBadge';
@@ -49,14 +50,17 @@ interface Props {
 
 export const NavToolbarActions = memo<Props>(({ dashboard }) => {
   const hasNewToolbar = config.featureToggles.dashboardNewLayouts;
+  const controls = dashboard.state.controls;
+  const inlineTimeControls = controls instanceof DashboardControls ? controls.state.inlineTimeControls : false;
 
   return hasNewToolbar ? (
     <AppChromeUpdate
       breadcrumbActions={<LeftActions dashboard={dashboard} />}
       actions={<RightActions dashboard={dashboard} />}
+      preferInlineActions={inlineTimeControls}
     />
   ) : (
-    <AppChromeUpdate actions={<ToolbarActions dashboard={dashboard} />} />
+    <AppChromeUpdate actions={<ToolbarActions dashboard={dashboard} />} preferInlineActions={inlineTimeControls} />
   );
 });
 
@@ -66,7 +70,7 @@ NavToolbarActions.displayName = 'NavToolbarActions';
  * This part is split into a separate component to help test this
  */
 export function ToolbarActions({ dashboard }: Props) {
-  const { isEditing, viewPanel, isDirty, uid, meta, editview, editPanel, editable, title } = dashboard.useState();
+  const { isEditing, viewPanel, isDirty, uid, meta, editview, editPanel, editable, title, controls } = dashboard.useState();
 
   const { isPlaying } = playlistSrv.useState();
   const [isAddPanelMenuOpen, setIsAddPanelMenuOpen] = useState(false);
@@ -91,6 +95,11 @@ export function ToolbarActions({ dashboard }: Props) {
   const { isReadOnlyRepo, repoType } = useGetResourceRepositoryView({
     folderName: meta.folderUid,
   });
+
+  // Check if inline time controls is enabled
+  const inlineTimeControls = controls instanceof DashboardControls ? controls.state.inlineTimeControls : false;
+  const timePicker = controls instanceof DashboardControls ? controls.state.timePicker : null;
+  const refreshPicker = controls instanceof DashboardControls ? controls.state.refreshPicker : null;
 
   if (!isEditingPanel) {
     // This adds the presence indicators in enterprise
@@ -587,6 +596,20 @@ export function ToolbarActions({ dashboard }: Props) {
       );
     },
   });
+
+  // Add inline time controls to toolbar when enabled
+  if (inlineTimeControls && timePicker && refreshPicker && !isEditingPanel) {
+    toolbarActions.push({
+      group: 'time-controls',
+      condition: true,
+      render: () => (
+        <div key="inline-time-controls" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <timePicker.Component model={timePicker} />
+          <refreshPicker.Component model={refreshPicker} />
+        </div>
+      ),
+    });
+  }
 
   return <ToolbarButtonRow alignment="right">{renderActionElements(toolbarActions)}</ToolbarButtonRow>;
 }

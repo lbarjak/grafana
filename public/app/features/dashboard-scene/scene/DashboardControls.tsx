@@ -34,6 +34,7 @@ export interface DashboardControlsState extends SceneObjectState {
   hideLinksControls?: boolean;
   // Hides the dashbaord-controls dropdown menu
   hideDashboardControls?: boolean;
+  inlineTimeControls?: boolean;
 }
 
 export class DashboardControls extends SceneObjectBase<DashboardControlsState> {
@@ -131,7 +132,8 @@ export class DashboardControls extends SceneObjectBase<DashboardControlsState> {
     const hasLinks = getDashboardSceneFor(this).state.links?.length > 0;
     const hideLinks = this.state.hideLinksControls || !hasLinks;
     const hideVariables = this.state.hideVariableControls || (!hasAnnotations && !hasVariables);
-    const hideTimePicker = this.state.hideTimeControls;
+    // Hide time picker if explicitly hidden or if inline time controls is enabled
+    const hideTimePicker = this.state.hideTimeControls || this.state.inlineTimeControls;
     const hideDashboardControls = this.state.hideDashboardControls || !this.hasDashboardControls();
 
     return !(hideVariables && hideLinks && hideTimePicker && hideDashboardControls);
@@ -146,11 +148,15 @@ function DashboardControlsRenderer({ model }: SceneComponentProps<DashboardContr
     hideVariableControls,
     hideLinksControls,
     hideDashboardControls,
+    inlineTimeControls,
   } = model.useState();
   const dashboard = getDashboardSceneFor(model);
   const { links, editPanel } = dashboard.useState();
   const styles = useStyles2(getStyles);
   const showDebugger = window.location.search.includes('scene-debugger');
+
+  // Hide time controls if inlineTimeControls is enabled (they are rendered in toolbar)
+  const shouldHideTimeControls = hideTimeControls || inlineTimeControls;
 
   if (!model.hasControls()) {
     // To still have spacing when no controls are rendered
@@ -174,7 +180,7 @@ function DashboardControlsRenderer({ model }: SceneComponentProps<DashboardContr
         {!hideLinksControls && !editPanel && <DashboardLinksControls links={links} dashboard={dashboard} />}
         {editPanel && <PanelEditControls panelEditor={editPanel} />}
       </Stack>
-      {!hideTimeControls && (
+      {!shouldHideTimeControls && (
         <div className={cx(styles.timeControls, editPanel && styles.timeControlsWrap)}>
           <timePicker.Component model={timePicker} />
           <refreshPicker.Component model={refreshPicker} />

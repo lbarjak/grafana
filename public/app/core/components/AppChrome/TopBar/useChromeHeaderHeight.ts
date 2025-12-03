@@ -56,6 +56,10 @@ function getHeaderLevelsGivenState(
     return 1;
   }
 
+  if (chromeState.preferInlineActions) {
+    return 1;
+  }
+
   // We have actions
   // If mega menu docked always use two levels
   // If scenes disabled always use two levels (mainly because of the time range picker)

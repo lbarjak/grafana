@@ -61,6 +61,7 @@ export class DashboardModelCompatibilityWrapper {
     return {
       refresh_intervals: this._scene.state.controls!.state.refreshPicker.state.intervals,
       hidden: this._scene.state.controls!.state.hideTimeControls ?? false,
+      inlineTimeControls: this._scene.state.controls!.state.inlineTimeControls,
     };
   }
 

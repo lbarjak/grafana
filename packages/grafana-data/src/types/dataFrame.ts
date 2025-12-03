@@ -74,6 +74,11 @@ export interface FieldConfig<TOptions = any> {
 
   // Numeric Options
   unit?: string;
+  /**
+   * When false, value formatter will not scale units automatically (e.g. thousands to K, millions to M).
+   * Defaults to true for backwards compat.
+   */
+  unitScale?: boolean;
   decimals?: DecimalCount; // Significant digits (for display)
   min?: number | null;
   max?: number | null;

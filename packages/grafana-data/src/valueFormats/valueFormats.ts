@@ -43,6 +43,7 @@ export interface ValueFormatterIndex {
 // Globals & formats cache
 let categories: ValueFormatCategory[] = [];
 const index: ValueFormatterIndex = {};
+const indexScalable: ValueFormatterIndex = {};
 let hasBuiltIndex = false;
 
 export function toFixed(value: number, decimals?: DecimalCount): string {
@@ -199,10 +200,17 @@ export function stringFormater(value: number): FormattedValue {
 
 function buildFormats() {
   categories = getCategories();
+  const nonScalableCategories = getCategories(false);
 
   for (const cat of categories) {
     for (const format of cat.formats) {
       index[format.id] = format.fn;
+    }
+  }
+
+  for (const cat of nonScalableCategories) {
+    for (const format of cat.formats) {
+      indexScalable[format.id] = format.fn;
     }
   }
 
@@ -212,12 +220,16 @@ function buildFormats() {
     if (f) {
       index[alias.from] = f;
     }
+    const fNonScaling = indexScalable[alias.to];
+    if (fNonScaling) {
+      indexScalable[alias.from] = fNonScaling;
+    }
   });
 
   hasBuiltIndex = true;
 }
 
-export function getValueFormat(id?: string | null): ValueFormatter {
+export function getValueFormat(id?: string | null, scalable = true): ValueFormatter {
   if (!id) {
     return toFixedUnit('');
   }
@@ -226,7 +238,8 @@ export function getValueFormat(id?: string | null): ValueFormatter {
     buildFormats();
   }
 
-  const fmt = index[id];
+  const lookup = scalable ? index : indexScalable;
+  const fmt = lookup[id];
 
   if (!fmt && id) {
     let idx = id.indexOf(':');
@@ -250,7 +263,7 @@ export function getValueFormat(id?: string | null): ValueFormatter {
       if (key === 'si') {
         const offset = getOffsetFromSIPrefix(sub.charAt(0));
         const unit = offset === 0 ? sub : sub.substring(1);
-        return SIPrefix(unit, offset);
+        return SIPrefix(unit, offset, scalable);
       }
 
       if (key === 'count') {
@@ -293,12 +306,12 @@ export function getValueFormat(id?: string | null): ValueFormatter {
   return fmt;
 }
 
-export function getValueFormatterIndex(): ValueFormatterIndex {
+export function getValueFormatterIndex(scalable = true): ValueFormatterIndex {
   if (!hasBuiltIndex) {
     buildFormats();
   }
 
-  return index;
+  return scalable ? index : indexScalable;
 }
 
 export function getValueFormats() {

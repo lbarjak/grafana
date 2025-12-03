@@ -22,6 +22,7 @@ export interface AppChromeState {
   pageNav?: NavModelItem;
   actions?: React.ReactNode;
   breadcrumbActions?: React.ReactNode;
+  preferInlineActions?: boolean;
   megaMenuOpen: boolean;
   megaMenuDocked: boolean;
   kioskMode: KioskMode | null;
@@ -77,6 +78,7 @@ export class AppChromeService {
       newState.actions = undefined;
       newState.pageNav = undefined;
       newState.sectionNav = { node: { text: t('nav.home.title', 'Home') }, main: { text: '' } };
+      newState.preferInlineActions = undefined;
       newState.chromeless = this.currentRoute?.chromeless;
       newState.layout = PageLayoutType.Standard;
       this.routeChangeHandled = true;

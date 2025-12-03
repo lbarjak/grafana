@@ -82,7 +82,8 @@ export function getDisplayProcessor(options?: DisplayProcessorOptions): DisplayP
   const canTrimTrailingDecimalZeros =
     !hasDateUnit && !hasCurrencyUnit && !hasBoolUnit && !isLocaleFormat && isNumType && config.decimals == null;
 
-  const formatFunc = getValueFormat(unit || 'none');
+  const shouldScaleUnits = config.unitScale ?? true;
+  const formatFunc = getValueFormat(unit || 'none', shouldScaleUnits);
   const scaleFunc = getScaleCalculator(field, options.theme);
 
   return (value: unknown, adjacentDecimals?: DecimalCount) => {

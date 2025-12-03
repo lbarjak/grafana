@@ -15,12 +15,14 @@ interface Props {
   onNowDelayChange: (nowDelay: string) => void;
   onHideTimePickerChange: (hide: boolean) => void;
   onLiveNowChange: (liveNow: boolean) => void;
+  onInlineTimeControlsChange: (inline: boolean) => void;
   refreshIntervals?: string[];
   timePickerHidden?: boolean;
   nowDelay?: string;
   timezone: TimeZone;
   weekStart?: WeekStart;
   liveNow?: boolean;
+  inlineTimeControls?: boolean;
 }
 
 export const TimePickerSettings = memo(
@@ -31,12 +33,14 @@ export const TimePickerSettings = memo(
     onNowDelayChange,
     onHideTimePickerChange,
     onLiveNowChange,
+    onInlineTimeControlsChange,
     refreshIntervals,
     timePickerHidden,
     nowDelay,
     timezone,
     weekStart,
     liveNow,
+    inlineTimeControls,
   }: Props) => {
     const [isNowDelayValid, setIsNowDelayValid] = useState(true);
 
@@ -62,6 +66,10 @@ export const TimePickerSettings = memo(
 
     const handleLiveNowChange = () => {
       onLiveNowChange(!liveNow);
+    };
+
+    const handleInlineTimeControlsChange = () => {
+      onInlineTimeControlsChange(!inlineTimeControls);
     };
 
     const handleTimeZoneChange = (timeZone?: string) => {
@@ -123,6 +131,19 @@ export const TimePickerSettings = memo(
           )}
         >
           <Switch id="refresh-live-dashboards-toggle" value={!!liveNow} onChange={handleLiveNowChange} />
+        </Field>
+        <Field
+          label={t('dashboard-settings.time-picker.inline-controls-label', 'Attach time controls to toolbar')}
+          description={t(
+            'dashboard-settings.time-picker.inline-controls-description',
+            'Show the time range selector and refresh controls inside the main toolbar instead of a floating row'
+          )}
+        >
+          <Switch
+            id="inline-time-controls-toggle"
+            value={!!inlineTimeControls}
+            onChange={handleInlineTimeControlsChange}
+          />
         </Field>
       </CollapsableSection>
     );

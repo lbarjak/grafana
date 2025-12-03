@@ -402,6 +402,23 @@ describe('transformSceneToSaveModelSchemaV2', () => {
     });
   });
 
+  it('should include inlineTimeControls flag when provided', () => {
+    const scene = setupDashboardScene(
+      getMinimalSceneState(
+        new DefaultGridLayoutManager({
+          grid: new SceneGridLayout({
+            children: [],
+          }),
+        })
+      )
+    );
+
+    scene.state.controls?.setState({ inlineTimeControls: true });
+
+    const result = transformSceneToSaveModelSchemaV2(scene);
+    expect((result.timeSettings as Record<string, unknown>).inlineTimeControls).toBe(true);
+  });
+
   it('should transform scene to save model schema v2', () => {
     const result = transformSceneToSaveModelSchemaV2(dashboardScene);
     expect(result).toMatchSnapshot();
@@ -1205,6 +1222,7 @@ describe('validateDashboardSchemaV2', () => {
       weekStart: 'invalid-day',
       nowDelay: 123,
       fiscalYearStartMonth: 'not-a-number',
+      inlineTimeControls: 'not-a-boolean',
     };
 
     expect(() => validateDashboardSchemaV2({ ...validDashboard, timeSettings: invalidTimeSettings })).toThrow(
@@ -1234,6 +1252,12 @@ describe('validateDashboardSchemaV2', () => {
         timeSettings: { ...validDashboard.timeSettings, fiscalYearStartMonth: 'not-a-number' },
       })
     ).toThrow('FiscalYearStartMonth is not a number');
+    expect(() =>
+      validateDashboardSchemaV2({
+        ...validDashboard,
+        timeSettings: { ...validDashboard.timeSettings, inlineTimeControls: 'not-a-boolean' },
+      })
+    ).toThrow('InlineTimeControls is not a boolean');
   });
 
   it('should validate layout kind and structure', () => {

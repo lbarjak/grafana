@@ -101,6 +101,11 @@ export function GeneralSettingsUnconnected({
     setRenderCounter(renderCounter + 1);
   };
 
+  const onInlineTimeControlsChange = (value: boolean) => {
+    dashboard.timepicker.inlineTimeControls = value;
+    setRenderCounter(renderCounter + 1);
+  };
+
   const onTimeZoneChange = (timeZone: TimeZone) => {
     dashboard.timezone = timeZone;
     setRenderCounter(renderCounter + 1);
@@ -194,12 +199,14 @@ export function GeneralSettingsUnconnected({
           onNowDelayChange={onNowDelayChange}
           onHideTimePickerChange={onHideTimePickerChange}
           onLiveNowChange={onLiveNowChange}
+          onInlineTimeControlsChange={onInlineTimeControlsChange}
           refreshIntervals={dashboard.timepicker.refresh_intervals}
           timePickerHidden={dashboard.timepicker.hidden}
           nowDelay={dashboard.timepicker.nowDelay}
           timezone={dashboard.timezone}
           weekStart={dashboard.weekStart}
           liveNow={dashboard.liveNow}
+          inlineTimeControls={dashboard.timepicker.inlineTimeControls}
         />
 
         {/* @todo: Update "Graph tooltip" description to remove prompt about reloading when resolving #46581 */}

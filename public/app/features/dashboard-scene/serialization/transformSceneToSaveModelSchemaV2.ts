@@ -117,6 +117,11 @@ export function transformSceneToSaveModelSchemaV2(scene: DashboardScene, isSnaps
     // EOF layout
   };
 
+  if (controlsState?.inlineTimeControls !== undefined) {
+    (dashboardSchemaV2.timeSettings as Record<string, unknown>).inlineTimeControls =
+      controlsState.inlineTimeControls;
+  }
+
   try {
     // validateDashboardSchemaV2 will throw an error if the dashboard is not valid
     if (validateDashboardSchemaV2(dashboardSchemaV2)) {
@@ -709,6 +714,13 @@ export function validateDashboardSchemaV2(dash: unknown): dash is DashboardV2Spe
     typeof timeSettings.fiscalYearStartMonth !== 'number'
   ) {
     throw new Error('FiscalYearStartMonth is not a number');
+  }
+  if (
+    'inlineTimeControls' in timeSettings &&
+    timeSettings.inlineTimeControls !== undefined &&
+    typeof timeSettings.inlineTimeControls !== 'boolean'
+  ) {
+    throw new Error('InlineTimeControls is not a boolean');
   }
 
   // Layout validation

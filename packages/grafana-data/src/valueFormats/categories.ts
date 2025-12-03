@@ -36,7 +36,7 @@ import {
   booleanValueFormatter,
 } from './valueFormats';
 
-export const getCategories = (): ValueFormatCategory[] => [
+export const getCategories = (scalable = true): ValueFormatCategory[] => [
   {
     name: t('grafana-data.valueFormats.categories.misc.name', 'Misc'),
     formats: [
@@ -58,7 +58,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.misc.formats.name-si-short', 'SI short'),
         id: 'sishort',
-        fn: SIPrefix(''),
+        fn: SIPrefix('', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.misc.formats.name-percent-100', 'Percent (0-100)'),
@@ -83,7 +83,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.misc.formats.name-candala', 'Candela (cd)'),
         id: 'candela',
-        fn: SIPrefix('cd'),
+        fn: SIPrefix('cd', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.misc.formats.name-hexadecimal-0x', 'Hexadecimal (0x)'),
@@ -198,42 +198,42 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-flops', 'FLOP/s'),
         id: 'flops',
-        fn: SIPrefix('FLOPS'),
+        fn: SIPrefix('FLOPS', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-mflops', 'MFLOP/s'),
         id: 'mflops',
-        fn: SIPrefix('FLOPS', 2),
+        fn: SIPrefix('FLOPS', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-gflops', 'GFLOP/s'),
         id: 'gflops',
-        fn: SIPrefix('FLOPS', 3),
+        fn: SIPrefix('FLOPS', 3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-tflops', 'TFLOP/s'),
         id: 'tflops',
-        fn: SIPrefix('FLOPS', 4),
+        fn: SIPrefix('FLOPS', 4, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-pflops', 'PFLOP/s'),
         id: 'pflops',
-        fn: SIPrefix('FLOPS', 5),
+        fn: SIPrefix('FLOPS', 5, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-eflops', 'EFLOP/s'),
         id: 'eflops',
-        fn: SIPrefix('FLOPS', 6),
+        fn: SIPrefix('FLOPS', 6, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-zflops', 'ZFLOP/s'),
         id: 'zflops',
-        fn: SIPrefix('FLOPS', 7),
+        fn: SIPrefix('FLOPS', 7, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.computation.formats.name-yflops', 'YFLOP/s'),
         id: 'yflops',
-        fn: SIPrefix('FLOPS', 8),
+        fn: SIPrefix('FLOPS', 8, scalable),
       },
     ],
   },
@@ -495,7 +495,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-bytes-si', 'bytes(SI)'),
         id: 'decbytes',
-        fn: SIPrefix('B'),
+        fn: SIPrefix('B', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-bits-iec', 'bits(IEC)'),
@@ -505,7 +505,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-bits-si', 'bits(SI)'),
         id: 'decbits',
-        fn: SIPrefix('b'),
+        fn: SIPrefix('b', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-kibibytes', 'kibibytes'),
@@ -515,7 +515,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-kilobytes', 'kilobytes'),
         id: 'deckbytes',
-        fn: SIPrefix('B', 1),
+        fn: SIPrefix('B', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-mebibytes', 'mebibytes'),
@@ -525,7 +525,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-megabytes', 'megabytes'),
         id: 'decmbytes',
-        fn: SIPrefix('B', 2),
+        fn: SIPrefix('B', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-gibibytes', 'gibibytes'),
@@ -535,7 +535,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-gigabytes', 'gigabytes'),
         id: 'decgbytes',
-        fn: SIPrefix('B', 3),
+        fn: SIPrefix('B', 3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-tebibytes', 'tebibytes'),
@@ -545,7 +545,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-terabytes', 'terabytes'),
         id: 'dectbytes',
-        fn: SIPrefix('B', 4),
+        fn: SIPrefix('B', 4, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-pebibytes', 'pebibytes'),
@@ -555,7 +555,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data.formats.name-petabytes', 'petabytes'),
         id: 'decpbytes',
-        fn: SIPrefix('B', 5),
+        fn: SIPrefix('B', 5, scalable),
       },
     ],
   },
@@ -565,7 +565,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-packets-sec', 'packets/sec'),
         id: 'pps',
-        fn: SIPrefix('p/s'),
+        fn: SIPrefix('p/s', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-bytes-sec-iec', 'bytes/sec(IEC)'),
@@ -575,7 +575,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-bytes-sec-si', 'bytes/sec(SI)'),
         id: 'Bps',
-        fn: SIPrefix('B/s'),
+        fn: SIPrefix('B/s', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-bits-sec-iec', 'bits/sec(IEC)'),
@@ -585,7 +585,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-bits-sec-si', 'bits/sec(SI)'),
         id: 'bps',
-        fn: SIPrefix('b/s'),
+        fn: SIPrefix('b/s', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-kibibytes-sec', 'kibibytes/sec'),
@@ -600,12 +600,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-kilobytes-sec', 'kilobytes/sec'),
         id: 'KBs',
-        fn: SIPrefix('B/s', 1),
+        fn: SIPrefix('B/s', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-kilobits-sec', 'kilobits/sec'),
         id: 'Kbits',
-        fn: SIPrefix('b/s', 1),
+        fn: SIPrefix('b/s', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-mebibytes-sec', 'mebibytes/sec'),
@@ -620,12 +620,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-megabytes-sec', 'megabytes/sec'),
         id: 'MBs',
-        fn: SIPrefix('B/s', 2),
+        fn: SIPrefix('B/s', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-megabits-sec', 'megabits/sec'),
         id: 'Mbits',
-        fn: SIPrefix('b/s', 2),
+        fn: SIPrefix('b/s', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-gibibytes-sec', 'gibibytes/sec'),
@@ -640,12 +640,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-gigabytes-sec', 'gigabytes/sec'),
         id: 'GBs',
-        fn: SIPrefix('B/s', 3),
+        fn: SIPrefix('B/s', 3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-gigabits-sec', 'gigabits/sec'),
         id: 'Gbits',
-        fn: SIPrefix('b/s', 3),
+        fn: SIPrefix('b/s', 3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-tebibytes-sec', 'tebibytes/sec'),
@@ -660,12 +660,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-terabytes-sec', 'terabytes/sec'),
         id: 'TBs',
-        fn: SIPrefix('B/s', 4),
+        fn: SIPrefix('B/s', 4, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-terabits-sec', 'terabits/sec'),
         id: 'Tbits',
-        fn: SIPrefix('b/s', 4),
+        fn: SIPrefix('b/s', 4, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-pebibytes-sec', 'pebibytes/sec'),
@@ -680,12 +680,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-petabytes-sec', 'petabytes/sec'),
         id: 'PBs',
-        fn: SIPrefix('B/s', 5),
+        fn: SIPrefix('B/s', 5, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.data-rate.formats.name-petabits-sec', 'petabits/sec'),
         id: 'Pbits',
-        fn: SIPrefix('b/s', 5),
+        fn: SIPrefix('b/s', 5, scalable),
       },
     ],
   },
@@ -749,27 +749,27 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-watt', 'Watt (W)'),
         id: 'watt',
-        fn: SIPrefix('W'),
+        fn: SIPrefix('W', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kilowatt', 'Kilowatt (kW)'),
         id: 'kwatt',
-        fn: SIPrefix('W', 1),
+        fn: SIPrefix('W', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-megawatt', 'Megawatt (MW)'),
         id: 'megwatt',
-        fn: SIPrefix('W', 2),
+        fn: SIPrefix('W', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-gigawatt', 'Gigawatt (GW)'),
         id: 'gwatt',
-        fn: SIPrefix('W', 3),
+        fn: SIPrefix('W', 3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-milliwatt', 'Milliwatt (mW)'),
         id: 'mwatt',
-        fn: SIPrefix('W', -1),
+        fn: SIPrefix('W', -1, scalable),
       },
       {
         name: t(
@@ -777,17 +777,17 @@ export const getCategories = (): ValueFormatCategory[] => [
           'Watt per square meter (W/m²)'
         ),
         id: 'Wm2',
-        fn: SIPrefix('W/m²'),
+        fn: SIPrefix('W/m²', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-volt-ampere', 'Volt-Ampere (VA)'),
         id: 'voltamp',
-        fn: SIPrefix('VA'),
+        fn: SIPrefix('VA', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kilovolt-ampere', 'Kilovolt-Ampere (kVA)'),
         id: 'kvoltamp',
-        fn: SIPrefix('VA', 1),
+        fn: SIPrefix('VA', 1, scalable),
       },
       {
         name: t(
@@ -795,7 +795,7 @@ export const getCategories = (): ValueFormatCategory[] => [
           'Volt-Ampere reactive (VAr)'
         ),
         id: 'voltampreact',
-        fn: SIPrefix('VAr'),
+        fn: SIPrefix('VAr', scalable),
       },
       {
         name: t(
@@ -803,12 +803,12 @@ export const getCategories = (): ValueFormatCategory[] => [
           'Kilovolt-Ampere reactive (kVAr)'
         ),
         id: 'kvoltampreact',
-        fn: SIPrefix('VAr', 1),
+        fn: SIPrefix('VAr', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-watt-hour', 'Watt-hour (Wh)'),
         id: 'watth',
-        fn: SIPrefix('Wh'),
+        fn: SIPrefix('Wh', scalable),
       },
       {
         name: t(
@@ -816,77 +816,77 @@ export const getCategories = (): ValueFormatCategory[] => [
           'Watt-hour per Kilogram (Wh/kg)'
         ),
         id: 'watthperkg',
-        fn: SIPrefix('Wh/kg'),
+        fn: SIPrefix('Wh/kg', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kilowatt-hour', 'Kilowatt-hour (kWh)'),
         id: 'kwatth',
-        fn: SIPrefix('Wh', 1),
+        fn: SIPrefix('Wh', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kilowatt-min', 'Kilowatt-min (kWm)'),
         id: 'kwattm',
-        fn: SIPrefix('W-Min', 1),
+        fn: SIPrefix('W-Min', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-megawatt-hour', 'Megawatt-hour (MWh)'),
         id: 'mwatth',
-        fn: SIPrefix('Wh', 2),
+        fn: SIPrefix('Wh', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-ampere-hour', 'Ampere-hour (Ah)'),
         id: 'amph',
-        fn: SIPrefix('Ah'),
+        fn: SIPrefix('Ah', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kiloampere-hour', 'Kiloampere-hour (kAh)'),
         id: 'kamph',
-        fn: SIPrefix('Ah', 1),
+        fn: SIPrefix('Ah', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-milliampere-hour', 'Milliampere-hour (mAh)'),
         id: 'mamph',
-        fn: SIPrefix('Ah', -1),
+        fn: SIPrefix('Ah', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-joule', 'Joule (J)'),
         id: 'joule',
-        fn: SIPrefix('J'),
+        fn: SIPrefix('J', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-electron-volt', 'Electron volt (eV)'),
         id: 'ev',
-        fn: SIPrefix('eV'),
+        fn: SIPrefix('eV', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-ampere', 'Ampere (A)'),
         id: 'amp',
-        fn: SIPrefix('A'),
+        fn: SIPrefix('A', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kiloampere', 'Kiloampere (kA)'),
         id: 'kamp',
-        fn: SIPrefix('A', 1),
+        fn: SIPrefix('A', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-milliampere', 'Milliampere (mA)'),
         id: 'mamp',
-        fn: SIPrefix('A', -1),
+        fn: SIPrefix('A', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-volt', 'Volt (V)'),
         id: 'volt',
-        fn: SIPrefix('V'),
+        fn: SIPrefix('V', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kilovolt', 'Kilovolt (kV)'),
         id: 'kvolt',
-        fn: SIPrefix('V', 1),
+        fn: SIPrefix('V', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-millivolt', 'Millivolt (mV)'),
         id: 'mvolt',
-        fn: SIPrefix('V', -1),
+        fn: SIPrefix('V', -1, scalable),
       },
       {
         name: t(
@@ -894,72 +894,72 @@ export const getCategories = (): ValueFormatCategory[] => [
           'Decibel-milliwatt (dBm)'
         ),
         id: 'dBm',
-        fn: SIPrefix('dBm'),
+        fn: SIPrefix('dBm', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-milliohm', 'Milliohm (mΩ)'),
         id: 'mohm',
-        fn: SIPrefix('Ω', -1),
+        fn: SIPrefix('Ω', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-ohm', 'Ohm (Ω)'),
         id: 'ohm',
-        fn: SIPrefix('Ω'),
+        fn: SIPrefix('Ω', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-kiloohm', 'Kiloohm (kΩ)'),
         id: 'kohm',
-        fn: SIPrefix('Ω', 1),
+        fn: SIPrefix('Ω', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-megaohm', 'Megaohm (MΩ)'),
         id: 'Mohm',
-        fn: SIPrefix('Ω', 2),
+        fn: SIPrefix('Ω', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-farad', 'Farad (F)'),
         id: 'farad',
-        fn: SIPrefix('F'),
+        fn: SIPrefix('F', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-microfarad', 'Microfarad (µF)'),
         id: 'µfarad',
-        fn: SIPrefix('F', -2),
+        fn: SIPrefix('F', -2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-nanofarad', 'Nanofarad (nF)'),
         id: 'nfarad',
-        fn: SIPrefix('F', -3),
+        fn: SIPrefix('F', -3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-picofarad', 'Picofarad (pF)'),
         id: 'pfarad',
-        fn: SIPrefix('F', -4),
+        fn: SIPrefix('F', -4, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-femtofarad', 'Femtofarad (fF)'),
         id: 'ffarad',
-        fn: SIPrefix('F', -5),
+        fn: SIPrefix('F', -5, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-henry', 'Henry (H)'),
         id: 'henry',
-        fn: SIPrefix('H'),
+        fn: SIPrefix('H', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-millihenry', 'Millihenry (mH)'),
         id: 'mhenry',
-        fn: SIPrefix('H', -1),
+        fn: SIPrefix('H', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-microhenry', 'Microhenry (µH)'),
         id: 'µhenry',
-        fn: SIPrefix('H', -2),
+        fn: SIPrefix('H', -2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.energy.formats.name-lumens', 'Lumens (Lm)'),
         id: 'lumens',
-        fn: SIPrefix('Lm'),
+        fn: SIPrefix('Lm', scalable),
       },
     ],
   },
@@ -1014,22 +1014,22 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.force.formats.name-newton-meters', 'Newton-meters (Nm)'),
         id: 'forceNm',
-        fn: SIPrefix('Nm'),
+        fn: SIPrefix('Nm', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.force.formats.name-kilonewton-meters', 'Kilonewton-meters (kNm)'),
         id: 'forcekNm',
-        fn: SIPrefix('Nm', 1),
+        fn: SIPrefix('Nm', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.force.formats.name-newtons', 'Newtons (N)'),
         id: 'forceN',
-        fn: SIPrefix('N'),
+        fn: SIPrefix('N', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.force.formats.name-kilonewtons', 'Kilonewtons (kN)'),
         id: 'forcekN',
-        fn: SIPrefix('N', 1),
+        fn: SIPrefix('N', 1, scalable),
       },
     ],
   },
@@ -1039,37 +1039,37 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-hashes-sec', 'hashes/sec'),
         id: 'Hs',
-        fn: SIPrefix('H/s'),
+        fn: SIPrefix('H/s', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-kilohashes-sec', 'kilohashes/sec'),
         id: 'KHs',
-        fn: SIPrefix('H/s', 1),
+        fn: SIPrefix('H/s', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-megahashes-sec', 'megahashes/sec'),
         id: 'MHs',
-        fn: SIPrefix('H/s', 2),
+        fn: SIPrefix('H/s', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-gigahashes-sec', 'gigahashes/sec'),
         id: 'GHs',
-        fn: SIPrefix('H/s', 3),
+        fn: SIPrefix('H/s', 3, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-terahashes-sec', 'terahashes/sec'),
         id: 'THs',
-        fn: SIPrefix('H/s', 4),
+        fn: SIPrefix('H/s', 4, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-petahashes-sec', 'petahashes/sec'),
         id: 'PHs',
-        fn: SIPrefix('H/s', 5),
+        fn: SIPrefix('H/s', 5, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.hash-rate.formats.name-exahashes-sec', 'exahashes/sec'),
         id: 'EHs',
-        fn: SIPrefix('H/s', 6),
+        fn: SIPrefix('H/s', 6, scalable),
       },
     ],
   },
@@ -1079,12 +1079,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.mass.formats.name-milligram', 'milligram (mg)'),
         id: 'massmg',
-        fn: SIPrefix('g', -1),
+        fn: SIPrefix('g', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.mass.formats.name-gram', 'gram (g)'),
         id: 'massg',
-        fn: SIPrefix('g'),
+        fn: SIPrefix('g', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.mass.formats.name-pound', 'pound (lb)'),
@@ -1094,7 +1094,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.mass.formats.name-kilogram', 'kilogram (kg)'),
         id: 'masskg',
-        fn: SIPrefix('g', 1),
+        fn: SIPrefix('g', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.mass.formats.name-metric-ton', 'metric ton (t)'),
@@ -1109,7 +1109,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.length.formats.name-millimeter', 'millimeter (mm)'),
         id: 'lengthmm',
-        fn: SIPrefix('m', -1),
+        fn: SIPrefix('m', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.length.formats.name-inch', 'inch (in)'),
@@ -1124,12 +1124,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.length.formats.name-meter', 'meter (m)'),
         id: 'lengthm',
-        fn: SIPrefix('m'),
+        fn: SIPrefix('m', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.length.formats.name-kilometer', 'kilometer (km)'),
         id: 'lengthkm',
-        fn: SIPrefix('m', 1),
+        fn: SIPrefix('m', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.length.formats.name-mile', 'mile (mi)'),
@@ -1144,22 +1144,22 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.pressure.formats.name-millibars', 'Millibars'),
         id: 'pressurembar',
-        fn: SIPrefix('bar', -1),
+        fn: SIPrefix('bar', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.pressure.formats.name-bars', 'Bars'),
         id: 'pressurebar',
-        fn: SIPrefix('bar'),
+        fn: SIPrefix('bar', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.pressure.formats.name-kilobars', 'Kilobars'),
         id: 'pressurekbar',
-        fn: SIPrefix('bar', 1),
+        fn: SIPrefix('bar', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.pressure.formats.name-pascals', 'Pascals'),
         id: 'pressurepa',
-        fn: SIPrefix('Pa'),
+        fn: SIPrefix('Pa', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.pressure.formats.name-hectopascals', 'Hectopascals'),
@@ -1189,57 +1189,57 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-becquerel', 'Becquerel (Bq)'),
         id: 'radbq',
-        fn: SIPrefix('Bq'),
+        fn: SIPrefix('Bq', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-curie', 'curie (Ci)'),
         id: 'radci',
-        fn: SIPrefix('Ci'),
+        fn: SIPrefix('Ci', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-gray', 'Gray (Gy)'),
         id: 'radgy',
-        fn: SIPrefix('Gy'),
+        fn: SIPrefix('Gy', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-rad', 'rad'),
         id: 'radrad',
-        fn: SIPrefix('rad'),
+        fn: SIPrefix('rad', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-sievert', 'Sievert (Sv)'),
         id: 'radsv',
-        fn: SIPrefix('Sv'),
+        fn: SIPrefix('Sv', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-millisievert', 'milliSievert (mSv)'),
         id: 'radmsv',
-        fn: SIPrefix('Sv', -1),
+        fn: SIPrefix('Sv', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-microsievert', 'microSievert (µSv)'),
         id: 'radusv',
-        fn: SIPrefix('Sv', -2),
+        fn: SIPrefix('Sv', -2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-rem', 'rem'),
         id: 'radrem',
-        fn: SIPrefix('rem'),
+        fn: SIPrefix('rem', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-exposure', 'Exposure (C/kg)'),
         id: 'radexpckg',
-        fn: SIPrefix('C/kg'),
+        fn: SIPrefix('C/kg', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-roentgen', 'roentgen (R)'),
         id: 'radr',
-        fn: SIPrefix('R'),
+        fn: SIPrefix('R', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.radiation.formats.name-sievert-hour', 'Sievert/hour (Sv/h)'),
         id: 'radsvh',
-        fn: SIPrefix('Sv/h'),
+        fn: SIPrefix('Sv/h', scalable),
       },
       {
         name: t(
@@ -1247,7 +1247,7 @@ export const getCategories = (): ValueFormatCategory[] => [
           'milliSievert/hour (mSv/h)'
         ),
         id: 'radmsvh',
-        fn: SIPrefix('Sv/h', -1),
+        fn: SIPrefix('Sv/h', -1, scalable),
       },
       {
         name: t(
@@ -1255,7 +1255,7 @@ export const getCategories = (): ValueFormatCategory[] => [
           'microSievert/hour (µSv/h)'
         ),
         id: 'radusvh',
-        fn: SIPrefix('Sv/h', -2),
+        fn: SIPrefix('Sv/h', -2, scalable),
       },
     ],
   },
@@ -1273,22 +1273,22 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.rotational-speed.formats.name-hertz', 'Hertz (Hz)'),
         id: 'rothz',
-        fn: SIPrefix('Hz'),
+        fn: SIPrefix('Hz', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.rotational-speed.formats.name-kilohertz', 'Kilohertz (kHz)'),
         id: 'rotkhz',
-        fn: SIPrefix('Hz', 1),
+        fn: SIPrefix('Hz', 1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.rotational-speed.formats.name-megahertz', 'Megahertz (MHz)'),
         id: 'rotmhz',
-        fn: SIPrefix('Hz', 2),
+        fn: SIPrefix('Hz', 2, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.rotational-speed.formats.name-gigahertz', 'Gigahertz (GHz)'),
         id: 'rotghz',
-        fn: SIPrefix('Hz', 3),
+        fn: SIPrefix('Hz', 3, scalable),
       },
       {
         name: t(
@@ -1334,7 +1334,7 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.time.formats.name-hertz', 'Hertz (1/s)'),
         id: 'hertz',
-        fn: SIPrefix('Hz'),
+        fn: SIPrefix('Hz', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.time.formats.name-nanoseconds', 'nanoseconds (ns)'),
@@ -1531,12 +1531,12 @@ export const getCategories = (): ValueFormatCategory[] => [
       {
         name: t('grafana-data.valueFormats.categories.volume.formats.name-millilitre', 'millilitre (mL)'),
         id: 'mlitre',
-        fn: SIPrefix('L', -1),
+        fn: SIPrefix('L', -1, scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.volume.formats.name-litre', 'litre (L)'),
         id: 'litre',
-        fn: SIPrefix('L'),
+        fn: SIPrefix('L', scalable),
       },
       {
         name: t('grafana-data.valueFormats.categories.volume.formats.name-cubic-meter', 'cubic meter'),

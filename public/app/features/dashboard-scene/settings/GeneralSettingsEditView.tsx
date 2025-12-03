@@ -144,6 +144,12 @@ export class GeneralSettingsEditView
     });
   };
 
+  public onInlineTimeControlsChange = (value: boolean) => {
+    this.getDashboardControls()?.setState({
+      inlineTimeControls: value,
+    });
+  };
+
   public onLiveNowChange = (enable: boolean) => {
     try {
       const liveNow = this.getLiveNowTimer();
@@ -203,7 +209,7 @@ function GeneralSettingsEditViewComponent({ model }: SceneComponentProps<General
   const { sync: graphTooltip } = model.getCursorSync()?.useState() || {};
   const { timeZone, weekStart, UNSAFE_nowDelay: nowDelay } = model.getTimeRange().useState();
   const { intervals } = model.getRefreshPicker().useState();
-  const { hideTimeControls } = model.getDashboardControls().useState();
+  const { hideTimeControls, inlineTimeControls } = model.getDashboardControls().useState();
   const { enabled: liveNow } = model.getLiveNowTimer().useState();
   const EDITABLE_OPTIONS = [
     {
@@ -313,12 +319,14 @@ function GeneralSettingsEditViewComponent({ model }: SceneComponentProps<General
           onNowDelayChange={model.onNowDelayChange}
           onHideTimePickerChange={model.onHideTimePickerChange}
           onLiveNowChange={model.onLiveNowChange}
+          onInlineTimeControlsChange={model.onInlineTimeControlsChange}
           refreshIntervals={intervals}
           timePickerHidden={hideTimeControls}
           nowDelay={nowDelay || ''}
           liveNow={liveNow}
           timezone={timeZone || ''}
           weekStart={weekStart}
+          inlineTimeControls={inlineTimeControls}
         />
 
         {/* @todo: Update "Graph tooltip" description to remove prompt about reloading when resolving #46581 */}
